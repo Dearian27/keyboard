@@ -30,6 +30,8 @@ const area = document.getElementById('text');
 const randomText = (text) => {
     return texts[Math.floor(Math.random() * texts.length)]
 }
+
 area.innerHTML = randomText()
+
 console.log('\u{1F60D}')
 
