@@ -1,0 +1,60 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: rgb(35,37,41);
+}
+.keyboard-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#keyboard{
+    margin-top: 75px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.text{
+    width: 1000px;
+    height: 300px;
+    padding: 20px;
+    margin-top: 75px;
+    color: #fff;
+    border: 2px solid grey;
+    font-family: 'Montserrat Alternates', sans-serif;
+    color: #cfebdd;
+    letter-spacing: 0.1em;
+    line-height: 1.5em;
+}
+.btn{
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-size: 20px;
+    padding: 20px 30px 18px 30px;
+    border-radius: 7px;
+    border: 2px rgb(107, 107, 107) solid;
+    background-color: rgb(35,37,41);
+    color: #cfebdd;
+    transition: 3s;
+}
+.row{
+    margin-top: 7px;
+}
+.capsLock .shift{
+    padding: 20px 30px 20px 30px;
+}
+.space{
+    padding: 20px 200px 20px 200px;
+}
+.right{
+    border: 2px rgb(101, 240, 101) solid;
+    color: rgb(19, 250, 19);
+    transition: 0.3s;
+}
+.wrong{
+    border-color: 2px red solid;
+    color: red;
+    transition: 0.3s;
+}
