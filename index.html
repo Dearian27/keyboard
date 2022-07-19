@@ -5,14 +5,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="/img/icon2.png" type="image/png">
     <title>Keyboard</title>
 </head>
 <body>
-    <div class="keyboard-wrapper">
-        <div class="text" id="text"></div>
 
+    <div class="stats-wrapper">
+        <div class="stats">
+            Statistic
+        </div>
+        <div class="stats-elements">
+            <ul>
+                <li class="list"><span class="first-letter">S</span>peed:&nbsp<div id="speed">0</div></li>
+                <li class="list"><span class="first-letter">M</span>istakes:&nbsp<div id="mistakes" class="wrong">0</div></li>
+                <li class="list"><span class="first-letter">G</span>achi:&nbsp<div id="gachi" class="wrong">false</div></li>
+            </ul>
+        </div>
+    </div>
+    <div class="keyboard-wrapper">
+        <div class="text" id="text">
+            <div class="cursor" id="cursor"></div>
+        </div>
         <div id="keyboard">
             <div class="first-row row">
                 <button class="btn" data-letter='1'>1</button>
@@ -70,8 +86,9 @@
             </div>
         </div>
     </div>
-
-
+    <script src="js/capslockRegulation.js"></script>
+    <script src="js/colorFunctions.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/generateText.js"></script>
 </body>
 </html>

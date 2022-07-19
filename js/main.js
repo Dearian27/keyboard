@@ -1,134 +1,89 @@
-const texts = [
-"The average typing speed of a normal person is between 38 and 40 words per minute this means around 200 characters per minute. Nevertheless, professional typists, or professionals who spend a lot of their time writing texts on desktop devices, have a typing speed of 65 to 75 words per minute.",
-'The typing test may only look like an innocent game, but there are attainable benefits that can result from constant practice with it. You can significantly improve your number of words per minutes and your accuracy until your fingers are capable of keeping pace with your thoughts.',
-'Typing speed is a vital skill in this connected world. If you want to communicate with customers in real time, you have to be quick about it. Even if you are not the fastest typist now, you can easily improve. We created the typing text speed challenge to help you improve your typing speed and accuracy.'
-]
+// const texts = [
+// "The average typing speed of a normal person is between 38 and 40 words per minute this means around 200 characters per minute. Nevertheless, professional typists, or professionals who spend a lot of their time writing texts on desktop devices, have a typing speed of 65 to 75 words per minute.",
+// 'The typing test may only look like an innocent game, but there are attainable benefits that can result from constant practice with it. You can significantly improve your number of words per minutes and your accuracy until your fingers are capable of keeping pace with your thoughts.',
+// 'Typing speed is a vital skill in this connected world. If you want to communicate with customers in real time, you have to be quick about it. Even if you are not the fastest typist now, you can easily improve. We created the typing text speed challenge to help you improve your typing speed and accuracy.'
+// ]
+
+const texts = ["this is a testing text"];
 
 const keyboard = document.getElementById('keyboard');
 const textHTML = document.getElementById('text');
 
 let currentPosition = 0;
+let textString;
+let textArray = [];
 let text;
-let currentText
-// const createPhrase = (texts) => {
-//     text = texts[Math.floor(Math.random() * texts.length)]
-//     console.log(text)
-    
+let currentText;
+let lastIndex;
 
-//     let index = 0;
-//     for(symbol of text)
-//     {
-//         let word =  document.createElement('div');
-//         word.classList.add('word');
-//         if(index == 0)
-//         {
-//             word.innerHTML += `<div data-index='${index}'>${symbol}</div>`;
-//         }
-        
-//          if(symbol == ' ')
-//         {
-//             console.log(word);
-//             word.innerHTML += `<div data-index='${index}'>&nbsp</div>`;
-//             textHTML += word;
-//             word.innerHTML = '';
-//         }
-//         else{
-//             word.innerHTML += `<div data-index='${index}'>${symbol}</div>`;
-//         }
-//         index++;
-//     }
-// }
+let speed = 0,
+    mistakes = 0,
+    gachiHTML,
+    mistakesHTML,
+    speedHTML;
 
-const createPhrase = (texts) => {
-    text = texts[Math.floor(Math.random() * texts.length)]
-    console.log(text)
-    let index = 0;
-    textHTML.innerHTML = `<div class = "word">`;
-    for(symbol of text)
-    {
-    
-        if(symbol == ' ')
-        {
-            textHTML.innerHTML += `</div><div data-index='${index}'>&nbsp</div><div class = "word">`;
-        }
-        else{
-            textHTML.innerHTML += `<div data-index='${index}'>${symbol}</div>`;
-        }
-        index++;
-        console.log(text)
-    }
-}
+mistakesHTML = document.getElementById('mistakes');
+speedHTML = document.getElementById('speed');
+gachiHTML = document.getElementById('gachi');
 
-createPhrase(texts);
-
-// ДОДАТИ АСИНХРОН
-
-
-//Регулювання CapsLock
-window.addEventListener("keyup",(event) => {
-
-    if (event.getModifierState("CapsLock")) {
-        document.getElementsByClassName('capsLock')[0].classList.add('active');
-    } 
-    else {
-        document.getElementsByClassName('capsLock')[0].classList.remove('active');
-    }
-});
-
-// console.log('\u{1F60D}')
-const getRight = (button) => {
-    button.classList.add('right')
-    const int = setTimeout( () => {
-    button.classList.remove('right')
-    },1000)
-} 
-
-const getWrong = (button) => {
-    button.classList.add('wrong')
-    const int = setTimeout( () => {
-        button.classList.remove('wrong')
-    },1000)
-}
-
-const getActive = (button) => {
-    button.classList.add('active')
-    const int = setTimeout( () => {
-        button.classList.remove('active')
-    },1000)
-}
+//Курсор
+const cursor = document.getElementById('cursor');
 
 window.addEventListener('keydown', (button) => {
+        element = document.querySelector(`[data-index = '${currentPosition}']`);
+        letterOnTextArea = document.querySelector(`[data-index = '${currentPosition}']`).dataset.value;
+        indexOfLetterOnTextArea = document.querySelector(`[data-index = '${currentPosition}']`).dataset.index;
 
-    
-    if(button.key.length < 2 && button.key != ' ')
-    {    
-        const butt = document.querySelector(`[data-letter="${button.key.toUpperCase()}"]`);
+        
+        //Правильно введено
+        if(button.key.length < 2 && button.key == letterOnTextArea){
+            letterRight(element);
 
-        if(butt.innerHTML.length < 2 && button.key == text.innerHTML[currentPosition]){
-           getRight(butt);
+            getRight(document.querySelector(`[data-letter = '${letterOnTextArea.toUpperCase()}']`));
             currentPosition++;
+
+            //Підсунення курсора
+            element.parentElement.removeChild(document.getElementById('cursor'))
+            element.insertAdjacentHTML('afterend', '<div class="cursor" id="cursor"></div>');
         }
-        else if(butt.innerHTML.length < 2){
-            getWrong(butt);
+        //Неправильно введено
+        else if(button.key.length < 2 && button.key != letterOnTextArea){
+            letterWrong(element);
+            getWrong(document.querySelector(`[data-letter = '${letterOnTextArea.toUpperCase()}']`));
             currentPosition++;
+            
+            //Підсунення курсора
+            element.parentElement.removeChild(document.getElementById('cursor'))
+            element.insertAdjacentHTML('afterend', '<div class="cursor" id="cursor"></div>');
+
+            mistakes++;
+            mistakesHTML.innerHTML = mistakes;
         }
-    }
-    else if (button.key == ' ')
-    {
-        currentPosition++;
-    }
-    else if (button.key == 'Backspace')
-    {
-        const butt = document.querySelector(`[data-letter=${button.key}]`);
-        console.log(butt)
-        currentPosition--;
-        getActive(butt);
-    }
+        else if (button.key == 'Backspace')
+        {
+            
+            getActive(document.querySelector("[data-letter = 'Backspace']"));
+            if(currentPosition > 0)
+            {
+                currentPosition--;
+                element = document.querySelector(`[data-index = '${currentPosition}']`);
+
+                letterNeutral(element);
+                //Підсунення курсора
+                element.parentElement.removeChild(document.getElementById('cursor'))
+                element.insertAdjacentHTML('beforebegin', '<div class="cursor" id="cursor"></div>');
+
+                
+            }   
+        }
 })
 
-// document.addEventListener('keydown', (button) => {
-//     console.log(button)
-//     const butt = document.querySelector(`[data-letter="${button.key}"]`)
-  
-// })
-
+window.addEventListener('keydown', (button) => {
+    if(indexOfLetterOnTextArea == lastIndex)
+    {
+        gachiHTML = document.getElementById('gachi')
+        gachiHTML.classList.remove('wrong');
+        gachiHTML.classList.add('right');
+        gachiHTML.innerHTML = 'finish';
+    }
+})
