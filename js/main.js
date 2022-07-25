@@ -4,7 +4,7 @@
 // 'Typing speed is a vital skill in this connected world. If you want to communicate with customers in real time, you have to be quick about it. Even if you are not the fastest typist now, you can easily improve. We created the typing text speed challenge to help you improve your typing speed and accuracy.'
 // ]
 
-const texts = ["this is a testing text"];
+const texts = ["this is Elon Musk"];
 
 const keyboard = document.getElementById('keyboard');
 const textHTML = document.getElementById('text');
@@ -16,20 +16,28 @@ let text;
 let currentText;
 let lastIndex;
 
-let speed = 0,
-    mistakes = 0,
+let mistakes = 0,
     gachiHTML,
     mistakesHTML,
     speedHTML;
+
+let gameIsOver = false,
+    gameIsStart = false;
 
 mistakesHTML = document.getElementById('mistakes');
 speedHTML = document.getElementById('speed');
 gachiHTML = document.getElementById('gachi');
 
+ let speed = 0,
+     taps = 0,
+     timeOfTyping = 0;
+
 //Курсор
 const cursor = document.getElementById('cursor');
 
 window.addEventListener('keydown', (button) => {
+    if(!gameIsOver)
+    {
         element = document.querySelector(`[data-index = '${currentPosition}']`);
         letterOnTextArea = document.querySelector(`[data-index = '${currentPosition}']`).dataset.value;
         indexOfLetterOnTextArea = document.querySelector(`[data-index = '${currentPosition}']`).dataset.index;
@@ -45,6 +53,12 @@ window.addEventListener('keydown', (button) => {
             //Підсунення курсора
             element.parentElement.removeChild(document.getElementById('cursor'))
             element.insertAdjacentHTML('afterend', '<div class="cursor" id="cursor"></div>');
+
+            //Обрахунок швидкості набору
+            taps++;
+
+            //Старт гри якщо вона ще не почата
+            gameIsStart = true;
         }
         //Неправильно введено
         else if(button.key.length < 2 && button.key != letterOnTextArea){
@@ -57,7 +71,13 @@ window.addEventListener('keydown', (button) => {
             element.insertAdjacentHTML('afterend', '<div class="cursor" id="cursor"></div>');
 
             mistakes++;
-            mistakesHTML.innerHTML = mistakes;
+            //mistakesHTML.innerHTML = mistakes;
+
+            //Обрахунок швидкості набору
+            taps++;
+
+            //Старт гри якщо вона ще не почата
+            gameIsStart = true;
         }
         else if (button.key == 'Backspace')
         {
@@ -76,14 +96,38 @@ window.addEventListener('keydown', (button) => {
                 
             }   
         }
+    }
 })
 
 window.addEventListener('keydown', (button) => {
-    if(indexOfLetterOnTextArea == lastIndex)
-    {
-        gachiHTML = document.getElementById('gachi')
-        gachiHTML.classList.remove('wrong');
-        gachiHTML.classList.add('right');
-        gachiHTML.innerHTML = 'finish';
+    let shift = document.querySelector("[data-letter = 'Shift']");
+    if (button.key == 'Shift'){
+        shift.classList.add('active')
+        }
+    else{
+        shift.classList.remove('active')
     }
 })
+
+
+
+let velocity = []
+let averageSpeed = 0;
+let countOfVelocities = 0;
+setInterval(()=>{
+    
+    if(timeOfTyping >= 6 && !gameIsOver && gameIsStart){
+        console.log('d')
+        speed = taps * 10;
+        taps = 0;
+        timeOfTyping = 0;
+        speedHTML.innerHTML = `${speed} spm`;
+        velocity.push(speed)
+    }
+
+    timeOfTyping++;
+    
+}, 1000)
+
+
+

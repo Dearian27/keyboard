@@ -12,19 +12,8 @@
     <title>Keyboard</title>
 </head>
 <body>
+    <button class="btn list" id="btn-open">push me</button>
 
-    <div class="stats-wrapper">
-        <div class="stats">
-            Statistic
-        </div>
-        <div class="stats-elements">
-            <ul>
-                <li class="list"><span class="first-letter">S</span>peed:&nbsp<div id="speed">0</div></li>
-                <li class="list"><span class="first-letter">M</span>istakes:&nbsp<div id="mistakes" class="wrong">0</div></li>
-                <li class="list"><span class="first-letter">G</span>achi:&nbsp<div id="gachi" class="wrong">false</div></li>
-            </ul>
-        </div>
-    </div>
     <div class="keyboard-wrapper">
         <div class="text" id="text">
             <div class="cursor" id="cursor"></div>
@@ -86,9 +75,31 @@
             </div>
         </div>
     </div>
+    <div id="wrapper-modal">
+        <div id="modal-window">
+            <div class="content">
+                <div class="stats-wrapper">
+                    <div class="stats">
+                        Your fingers is really fast!
+                    </div>
+                    <div class="stats-elements">
+                        <ul>
+                            <li class="list"><span class="first-letter">S</span>peed:&nbsp<div id="speed">0</div></li>
+                            <li class="list"><span class="first-letter">M</span>istakes:&nbsp<div id="mistakes" class="wrong">0</div></li>
+                            <li class="list"><span class="first-letter">G</span>achi:&nbsp<div id="gachi" class="wrong">false</div></li>
+                        </ul>
+                        <button id="btn-close">Try again</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/modalWindow.js"></script>
+    <script src="js/fillingStats.js"></script>
     <script src="js/capslockRegulation.js"></script>
     <script src="js/colorFunctions.js"></script>
     <script src="js/main.js"></script>
     <script src="js/generateText.js"></script>
+    <script src="js/endGameChecker.js"></script>
 </body>
 </html>

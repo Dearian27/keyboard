@@ -2,7 +2,18 @@
     margin: 0;
     padding: 0;
 }
+html {
+    overflow:  hidden; 
+}
 
+button {
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+}
 body{
     background-color: #323437 /*rgb(35,37,41)*/;
     color: #626467; /*#cfebdd*/
@@ -56,7 +67,7 @@ li{
      100%{
         opacity: 1;
      }
-   }
+}
 
 .cursor{
     width: 2px;
@@ -79,7 +90,7 @@ li{
     margin-top: 7px;
 }
 .btn.capsLock{
-    transition: 0.3s all ease;
+    transition: 0.15s all ease;
 }
 .capsLock.shift{
     padding: 10px 35px 8px 35px;
@@ -115,26 +126,33 @@ li{
     font-weight: bold;
 }
 
+.content{
+    margin-top: 10%;
+}
 .stats-wrapper{
-    position: absolute;
-    left: 0;
-    border-right: 2px solid #424242;
-    width: 15%;
     height: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .stats{
     display: flex;
     align-self: center;
-    margin-top: 8%;
+    font-size: 30px;
     color: #c7c6bc;
+    margin-bottom: 50px;
 }
 .stats-elements{
-    margin-left: 6%;
     margin-top: 20px;
     display: flex;
+    flex-direction: column;
+}
+.stats-elements ul{
+    display: flex;
+    align-self: center;
+    flex-direction: column;
 }
 .first-letter{
     color: #dcb315;
@@ -142,4 +160,59 @@ li{
 .list{
     display: flex;
     margin-bottom: 10px;
+    font-size: 20px;
+    color: #c7c6bc;
+}
+
+#wrapper-modal{
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s linear 300ms, opacity 300ms;
+}
+
+#wrapper-modal.active {
+    position: absolute;
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0s linear 0s, opacity 300ms;
+}
+
+#modal-window {
+    background: #323437;
+    /* opacity: 0.8; */
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+#btn-close{
+    padding: 0 30px;
+    font-size: 20px;
+    color: #c7c6bc;
+    display: flex;
+    margin-top: 100px;
+    align-self: center;
+    animation: btn-text 3s linear infinite;
+}
+
+@keyframes btn-text {
+    0% {
+     color: #c7c6bc;
+    }
+    50%{
+     color: #dcb315;
+    }
+     100%{
+     color: #c7c6bc;
+    }
+}
+
+.btn.list{
+    padding: 5px 0;
+    display: flex;
+    justify-content: center;
 }
