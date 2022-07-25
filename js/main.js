@@ -28,9 +28,10 @@ mistakesHTML = document.getElementById('mistakes');
 speedHTML = document.getElementById('speed');
 gachiHTML = document.getElementById('gachi');
 
- let speed = 0,
-     taps = 0,
-     timeOfTyping = 0;
+let speed = 0,
+    taps = 0,
+    timeOfTyping = 0;
+
 
 //Курсор
 const cursor = document.getElementById('cursor');
@@ -114,14 +115,14 @@ window.addEventListener('keydown', (button) => {
 let velocity = []
 let averageSpeed = 0;
 let countOfVelocities = 0;
+
 setInterval(()=>{
     
-    if(timeOfTyping >= 6 && !gameIsOver && gameIsStart){
+    if(timeOfTyping >= 1 && !gameIsOver && gameIsStart){
         console.log('d')
-        speed = taps * 10;
+        speed = taps * 60;
         taps = 0;
         timeOfTyping = 0;
-        speedHTML.innerHTML = `${speed} spm`;
         velocity.push(speed)
     }
 

@@ -24,7 +24,7 @@ const fillingStats = () => {
             console.log('mistakes complete')
             clearInterval(mist);
         }
-    }, 500);
+    }, 400);
 
     const sp = setInterval(()=>{
         let randomNumber = Math.ceil(Math.random() * 8) //Рандомне число від 1 до 8
@@ -48,5 +48,5 @@ const fillingStats = () => {
             console.log('speed complete')
             clearInterval(sp);
         }
-    }, 300);
+    }, 50);
 }
