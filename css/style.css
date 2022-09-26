@@ -55,9 +55,8 @@ li{
     padding: 20px;
     margin-top: 75px;
     color: #626467;
-    /* border: 2px solid grey; */
     border-radius: 2vh;
-    align-items: center;
+    align-content: center;
     letter-spacing: 0em;
     line-height: 1.5em;
 }
@@ -76,10 +75,20 @@ li{
 }
 
 .cursor{
+    position: relative;
+    /* width: 2px; */
+    height: 20px;
+}
+.cursor::after {
+    position: absolute;
+    /* top: 50%; */
+    /* transform: translateY(-50%); */
+    left: 0;
     width: 2px;
     height: 20px;
     background-color: #dcb315;
     animation: cursor 1s infinite 0s ease-in-out;
+    content: "";
 }
 
 .btn{
@@ -165,6 +174,8 @@ li{
 }
 .list{
     display: flex;
+    justify-content: space-between;
+    width: 250px;
     margin-bottom: 10px;
     font-size: 20px;
     color: #c7c6bc;

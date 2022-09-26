@@ -1,9 +1,16 @@
-const texts = [
-"The average typing speed of a normal person is between 38 and 40 words per minute this means around 200 characters per minute. Nevertheless, professional typists, or professionals who spend a lot of their time writing texts on desktop devices, have a typing speed of 65 to 75 words per minute.",
-'The typing test may only look like an innocent game, but there are attainable benefits that can result from constant practice with it. You can significantly improve your number of words per minutes and your accuracy until your fingers are capable of keeping pace with your thoughts.',
-'Typing speed is a vital skill in this connected world. If you want to communicate with customers in real time, you have to be quick about it. Even if you are not the fastest typist now, you can easily improve. We created the typing text speed challenge to help you improve your typing speed and accuracy.'
-]
+// const texts = [
+// 'The average typing speed of a normal person is between 38 and 40 words per minute this means around 200 characters per minute.',
+// 'Professional typists, or professionals who spend a lot of their time writing texts on desktop devices, have a typing speed of 65 to 75 words per minute.',
+// 'The typing test may only look like an innocent game, but there are attainable benefits that can result from constant practice with it.',
+// 'You can significantly improve your number of words per minutes and your accuracy until your fingers are capable of keeping pace with your thoughts.',
+// 'Typing speed is a vital skill in this connected world. If you want to communicate with customers in real time, you have to be quick about it.',
+// 'Even if you are not the fastest typist now, you can easily improve. We created the typing text speed challenge to help you improve your typing speed and accuracy.',
+// ]
 
+const texts = [
+    'Ddsad',
+    'Dsa'
+]
 
 const keyboard = document.getElementById('keyboard');
 const textHTML = document.getElementById('text');
@@ -16,7 +23,8 @@ let currentText;
 let lastIndex;
 
 let mistakes = 0,
-    gachiHTML,
+    fixedMistakes = 0,
+    fixedMistakesHTML,
     mistakesHTML,
     speedHTML;
 
@@ -25,7 +33,7 @@ let gameIsOver = false,
 
 mistakesHTML = document.getElementById('mistakes');
 speedHTML = document.getElementById('speed');
-gachiHTML = document.getElementById('gachi');
+fixedMistakesHTML = document.getElementById('fixed');
 
 let speed = 0,
     taps = 0,
@@ -42,9 +50,25 @@ window.addEventListener('keydown', (button) => {
         letterOnTextArea = document.querySelector(`[data-index = '${currentPosition}']`).dataset.value;
         indexOfLetterOnTextArea = document.querySelector(`[data-index = '${currentPosition}']`).dataset.index;
 
-        
+        //Backspace
+        if (button.key == 'Backspace')
+        {
+            getActive(document.querySelector("[data-letter = 'Backspace']"));
+            if(currentPosition > 0)
+            {
+                currentPosition--;
+                element = document.querySelector(`[data-index = '${currentPosition}']`);
+
+                letterNeutral(element);
+                //Підсунення курсора
+                element.parentElement.removeChild(document.getElementById('cursor'))
+                element.insertAdjacentHTML('beforebegin', '<div class="cursor" id="cursor"></div>');
+
+                
+            }   
+        }
         //Правильно введено
-        if(button.key.length < 2 && button.key == letterOnTextArea){
+        else if(button.key.length < 2 && button.key == letterOnTextArea){
             letterRight(element);
 
             getRight(document.querySelector(`[data-letter = '${letterOnTextArea.toUpperCase()}']`));
@@ -71,31 +95,13 @@ window.addEventListener('keydown', (button) => {
             element.insertAdjacentHTML('afterend', '<div class="cursor" id="cursor"></div>');
 
             mistakes++;
-            //mistakesHTML.innerHTML = mistakes;
 
             //Обрахунок швидкості набору
             taps++;
 
             //Старт гри якщо вона ще не почата
             gameIsStart = true;
-        }
-        else if (button.key == 'Backspace')
-        {
-            
-            getActive(document.querySelector("[data-letter = 'Backspace']"));
-            if(currentPosition > 0)
-            {
-                currentPosition--;
-                element = document.querySelector(`[data-index = '${currentPosition}']`);
-
-                letterNeutral(element);
-                //Підсунення курсора
-                element.parentElement.removeChild(document.getElementById('cursor'))
-                element.insertAdjacentHTML('beforebegin', '<div class="cursor" id="cursor"></div>');
-
-                
-            }   
-        }
+        } 
     }
 })
 
@@ -118,7 +124,6 @@ let countOfVelocities = 0;
 setInterval(()=>{
     
     if(timeOfTyping >= 1 && !gameIsOver && gameIsStart){
-        console.log('d')
         speed = taps * 60;
         taps = 0;
         timeOfTyping = 0;

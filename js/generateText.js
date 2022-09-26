@@ -8,11 +8,11 @@ const createPhrase = (texts) => {
     }
     textArray = textArray.map((el, index)=>{
         if(el == ' ')
-            return `<div data-value="${el}" data-index="${index}">&nbsp</div>`;
+            return `<div data-class="letter" data-value="${el}" data-index="${index}">&nbsp</div>`;
         else
-            return `<div data-value="${el}" data-index="${index}">${el}</div>`;
+            return `<div data-class="letter" data-value="${el}" data-index="${index}">${el}</div>`;
     })
-    lastIndex = textArray.length-1;
+    lastIndex = textArray.length - 1;
     //-------------------------------------------------------------------------
     // for(const [index, symbol] of textArray.entries())
     // {
